@@ -1,4 +1,4 @@
-# 你应该相几次亲？
+# 你应该相几次亲才能找到靠谱对象？
 # http://xccds1977.blogspot.com/2012/03/blog-post_11.html
 
 selection <- function(n) {
