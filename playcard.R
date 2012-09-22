@@ -6,7 +6,7 @@ card.select <- function(n=1,m=6) {
  return(x)
 }
 
-# 完成一次二十一点游戏的函数，point为是否继续要牌的判断阀值
+# 完成一次二十一点游戏的函数，point为是否继续要牌的判断阀值.
 game <- function(point) {
   # 最开始得到的两张牌
   select <- c(card.select(),card.select())
