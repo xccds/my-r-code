@@ -1,3 +1,6 @@
+# 关于plyr包的使用方法
+# http://xccds1977.blogspot.com/2012/04/plyrapply.html
+
 library(plyr)
 library(reshape2)
 

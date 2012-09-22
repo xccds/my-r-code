@@ -1,0 +1,29 @@
+**线性模型**是很常用的一类建模方法，它可以用于回归和分类问题。但有时候用全体数据来建模并不理想，这是因为数据内部存在一些局部特性。例如我们要考虑教育对收入的影响程度，那么对于不同的性别，这个影响程度可能也是不同的。所以我们会将数据先进行分割，然后对每个组分别进行回归建模。这种模型和分割相结合的方法又称为**基于模型的重复划分算法**（model-based recursive partitioning algorithm）。这个工作可以通过手工分组或加入虚拟变量来做，更方便的是利用party包中的mob函数来完成。
+
+mob函数算法的基本步骤如下：
+- 对所有数据构建模型
+- 根据不同的分割变量，评价模型参数的不稳定性。选择某个分割变量使模型参数不稳定性最大。
+- 计算分割变量的分割点
+- 将数据根据上述结果分成两个子集
+- 重复上面的步骤
+
+下面的算例来自于faraway包中的psid数据集，其中我们关注的是不同性别的组中，教育对收入的影响。
+```{r message=FALSE}
+library(party)
+data(psid,package='faraway')
+mod1 <- mob(sqrt(income)~educ|sex,data=psid)
+plot(mod1)
+```
+可以观察到男性组别中，教育对收入的影响显然要更大一些。mob函数也可以处理两分类变量，下面的算例来自于mlbench包中的PimaIndiansDiabetes2数据集，其中我们关注的是对糖尿病风险的影响因素。
+```{r}
+data(PimaIndiansDiabetes2,package='mlbench')
+data <- na.omit(PimaIndiansDiabetes2[,-c(4,5)])
+mod2 <- mob(diabetes~glucose | pregnant + pressure + mass + pedigree + age, data= data, model=glinearModel,family=binomial())
+plot(mod2)
+```
+从上图可以观察到，首先将数据根据体重变量mass进行了分组。在体重较轻的一组即结点2中，糖尿病发病风险较低，但随着血糖浓度glucose的增加，风险也在急剧增加。在结点4中表示了体重较大但年龄小于30的人群，糖尿病发病风险整体上升。而结点5中表示了体重较大且年龄大于30的人群，糖尿病发病风险达到最大，随着血糖浓度的增加，风险也在逐步增加。
+
+参考资料：
+http://cran.r-project.org/web/packages/party/vignettes/MOB.pdf
+
+顺便说下，本文是采用knitr包+markdown+Rstudio生成html后，贴在博客上的。看起来效果很行吧。

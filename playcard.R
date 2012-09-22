@@ -1,3 +1,6 @@
+# 一个玩21点的模拟函数
+# http://xccds1977.blogspot.com/2012/03/21.html
+
 # 从13张扑克牌中抽一张牌的函数，用n和m来控制大小牌的抽取概率
 card.select <- function(n=1,m=6) {
  x <- sample(1:13,1,prob=rep(c(n,m),c(9,4))/sum(rep(c(n,m),c(9,4))))
@@ -6,7 +9,7 @@ card.select <- function(n=1,m=6) {
  return(x)
 }
 
-# 完成一次二十一点游戏的函数，point为是否继续要牌的判断阀值.
+# 完成一次二十一点游戏的函数，point为是否继续要牌的判断阀值
 game <- function(point) {
   # 最开始得到的两张牌
   select <- c(card.select(),card.select())
