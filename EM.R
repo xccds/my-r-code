@@ -1,6 +1,3 @@
-# EM算法的例子
-# http://xccds1977.blogspot.com/2012/08/emr.html
-
 # 已知条件
 h = 20
 c = 10
@@ -49,13 +46,17 @@ sigma <- runif(m)
 alpha <- c(0.2,0.8)
 prob <- matrix(rep(0,n*m),ncol=m)
 
-for (step in 1:100){
+for (step in 1:200){
     # E步骤
     for (j in 1:m){
         prob[,j]<- sapply(x,dnorm,miu[j],sigma[j])
     }
-    sumprob <- rowSums(prob)
-    prob<- prob/sumprob
+    sumprob <- prob %*% alpha
+
+    for (j in 1:m){
+        prob[,j] <- alpha[j]*prob[,j]/sumprob
+    }
+    
 
     oldmiu <- miu
     oldsigma <- sigma

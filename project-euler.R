@@ -347,6 +347,7 @@ for (a in 1:500) {
     for (b in 1:500) {
         if (2*a*b-2000*(a+b)+1000^2==0) {
         print(c(a,b,1000-a-b))
+        print(a*b*(1000-a-b))
         break
         }
     }
