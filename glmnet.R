@@ -3,7 +3,7 @@
 
 library(ggplot2)
 library(glmnet)
-library(reshpae)
+library(reshape)
 # 读入数据
 data <- read.csv('d:/ex2data2.txt',F)
 # 散点图
